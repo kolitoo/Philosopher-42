@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_destroy.c                                     :+:      :+:    :+:   */
+/*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/15 12:09:54 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/21 16:25:47 by abourdon         ###   ########.fr       */
+/*   Created: 2023/04/21 11:35:44 by abourdon          #+#    #+#             */
+/*   Updated: 2023/04/21 16:37:39 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	free_all(t_arg *arg)
+void	*thread_routine(void *arg)
 {
-	free(arg->philo_tabstruct);
-	free(arg->mutex_tab);
-	free(arg->threads);
-}
+	t_philo	*philo;
 
-void	unlock_and_destroy_mutex(t_arg *arg)
-{
-	int	i;
-
-	i = arg->nbr_philo;
-	while (i--)
+	philo = (t_philo *)arg;
+	philo->time_of_last_must_eat = ft_get_time();
+	philo->start_time = ft_get_time();
+	while (1)
 	{
-		// pthread_mutex_unlock(&arg->mutex_tab[i]);
-		pthread_mutex_destroy(&arg->mutex_tab[i]);
+		take_fork(philo);
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
-	// pthread_mutex_unlock(&(*arg).print_lock);
-	pthread_mutex_destroy(&(*arg).print_lock);
+	return (NULL);
 }
+
+// void	*ft_test(void *arg)
+// {
+// 	t_philo	*philo;
+
+// 	philo = (t_philo *)arg;
+// 	// pthread_mutex_unlock(&philo->print_lock);
+// 	return (NULL);
+// }

@@ -6,13 +6,13 @@
 #    By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 18:36:41 by abourdon          #+#    #+#              #
-#    Updated: 2023/04/15 12:14:15 by abourdon         ###   ########.fr        #
+#    Updated: 2023/04/21 15:28:41 by abourdon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=thread -g
 RM = rm -rf
 
 GREEN=\033[33;32m
@@ -25,6 +25,9 @@ SRC = src/philo.c \
 	src/utils.c \
 	src/init.c \
 	src/free_destroy.c \
+	src/check.c \
+	src/process.c \
+	src/action.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -33,7 +36,7 @@ OBJ = $(SRC:.c=.o)
 
 $(NAME): $(OBJ) include/philo.h
 	@echo "$(BLUE)$(BOLD)Compiling $(NAME)...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) -pthread
 	@echo "$(GREEN)$(BOLD)$(NAME) compiled!$(RESET)"
 
 all: $(NAME)

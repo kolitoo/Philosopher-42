@@ -6,37 +6,29 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:53 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/15 12:11:34 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:07:40 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_check_arg(int ac, char **av)
+void	printphilo(t_arg *arg)
 {
 	int	i;
 
-	i = 1;
-	if (ac == 5 || ac == 6)
+	i = 0;
+	while (i < arg->nbr_philo)
 	{
-		while (av[i] != NULL)
-		{
-			if (ft_is_digit(av[i]) == 1)
-			{
-				printf("Invalid arguments\n");
-				return (1);
-			}
-			i++;
-		}
+		printf("philo ID: %d\n", arg->philo_tabstruct[i].philo_id);
+		printf("philo nb: %d\n", arg->philo_tabstruct[i].nbr_philo);
+		printf("total nbr of must eat: %d\n", arg->philo_tabstruct[i].total_nbr_of_must_eat);
+		printf("time to eat: %d\n", arg->philo_tabstruct[i].time_to_eat);
+		printf("time to sleep: %d\n", arg->philo_tabstruct[i].time_to_sleep);
+		printf("time to die: %d\n", arg->philo_tabstruct[i].time_to_die);
+		printf("time of last must eat: %ld\n", arg->philo_tabstruct[i].time_of_last_must_eat);
+		printf("---------------------------------------------\n");
+		i++;
 	}
-	else
-	{
-		printf("Invalid number of arguments, write: \n[number_of_philosophers] \
-		[time_to_die] [time_to_eat] [time_to_sleep]\
-		[number_of_times_each_philosopher_must_eat]\n");
-		return (1);
-	}
-	return (0);
 }
 
 int	main(int ac, char **av)
@@ -49,11 +41,12 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_init_mutex(&arg) == 1)
 		return (1);
-	printf("%d\n", arg.nbr_philo);
-	printf("%d\n", arg.time_to_die);
-	printf("%d\n", arg.time_to_eat);
-	printf("%d\n", arg.time_to_sleep);
-	printf("%d\n", arg.nb_time_must_eat);
+	if (ft_init_philo(&arg) == 1)
+		return (1);
+	// printphilo(&arg);
+	if (ft_init_thread(&arg) == 1)
+		return (1);
+	unlock_and_destroy_mutex(&arg);
 	free_all(&arg);
 	return (0);
 }

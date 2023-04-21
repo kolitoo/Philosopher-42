@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/15 11:39:35 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:24:40 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,23 @@ int	ft_is_digit(char *str)
 		i++;
 	}
 	return (0);
+}
+
+long	ft_get_time(void)
+{
+	struct timeval	tv;
+	long			res;
+
+	gettimeofday(&tv, NULL);
+	res = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (res);
+}
+
+void	ft_usleep(int usec)
+{
+	long	time_action_start;
+	
+	time_action_start = ft_get_time();
+	while (ft_get_time() < time_action_start + usec)
+		usleep(1);
 }
