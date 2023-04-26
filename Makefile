@@ -6,13 +6,13 @@
 #    By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 18:36:41 by abourdon          #+#    #+#              #
-#    Updated: 2023/04/21 15:28:41 by abourdon         ###   ########.fr        #
+#    Updated: 2023/04/26 17:09:13 by abourdon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=thread -g
+CFLAGS = -Wall -Werror -Wextra -g3
 RM = rm -rf
 
 GREEN=\033[33;32m
@@ -26,7 +26,7 @@ SRC = src/philo.c \
 	src/init.c \
 	src/free_destroy.c \
 	src/check.c \
-	src/process.c \
+	src/routine.c \
 	src/action.c \
 
 OBJ = $(SRC:.c=.o)

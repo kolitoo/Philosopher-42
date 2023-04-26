@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 11:52:48 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/21 16:32:30 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:14:39 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_init_args(int ac, char **av, t_arg *arg)
 	arg->time_to_sleep = ft_atoi(av[4]);
 	if (ft_check_values(ac, arg, av) == 1)
 		return (1);
+	arg->stop = 0;
+	arg->mutex_lock = 0;
 	return (0);
 }
 
@@ -40,13 +42,15 @@ int	ft_init_philo(t_arg *arg)
 		philo[i].philo_id = i + 1;
 		philo[i].nbr_philo = arg->nbr_philo;
 		philo[i].total_nbr_of_must_eat = arg->nb_time_must_eat;
+		// printf("Philo ID: %d\ntotal_nbr_of_must_eat: %d\n", philo[i].philo_id, philo[i].total_nbr_of_must_eat);
+		philo[i].actual_meals = 0;
 		philo[i].time_to_eat = arg->time_to_eat;
 		philo[i].time_to_die = arg->time_to_die;
+		philo[i].die = 0;
 		philo[i].time_to_sleep = arg->time_to_sleep;
 		philo[i].time_of_last_must_eat = ft_get_time();
 		philo[i].left_fork = &arg->mutex_tab[philo[i].philo_id];
 		philo[i].right_fork = &arg->mutex_tab[philo[i].philo_id + 1 % arg->nbr_philo];
-		// philo[i].print_lock = arg->print_lock;
 		philo[i].arg = arg;
 		i++;
 	}
@@ -59,7 +63,7 @@ int	ft_init_thread(t_arg *arg)
 	int	i;
 	int	j;
 	pthread_t	*threads;
-	// pthread_t	s_tid;
+	// pthread_t	thread_die;
 
 	i = arg->nbr_philo;
 	j = i;
@@ -71,16 +75,12 @@ int	ft_init_thread(t_arg *arg)
 	}
 	while (i--)
 	{
-		// printf("On creer le threads[%d]\n", i + 1);
-		// printf("ID: %d\n", arg->philo_tabstruct[i].philo_id);
-		pthread_create(&threads[i], NULL, thread_routine, &arg->philo_tabstruct[i]);
+		pthread_create(&threads[i], NULL, thread_routine, (void *)&arg->philo_tabstruct[i]);
 	}
-	// pthread_create(&s_tid, NULL, ft_test, arg->philo_tabstruct);
-	// pthread_join(s_tid, NULL);
-	while (j)
+	// pthread_create(&thread_die, NULL, thread_routine_die, (void *)arg->philo_tabstruct);
+	// pthread_join(thread_die, NULL);
+	while (j--)
 	{
-		j--;
-		// printf("On join le threads[%d]\n", j + 1);
 		pthread_join(threads[j], NULL);
 	}
 	arg->threads = threads;
@@ -104,6 +104,7 @@ int	ft_init_mutex(t_arg *arg)
 		pthread_mutex_init(&mutex[i], NULL);//protect
 	}
 	pthread_mutex_init(&arg->print_lock, NULL);//protect
+	// pthread_mutex_init(&arg->check_died, NULL);
 	arg->mutex_tab = mutex;
 	return (0);
 }

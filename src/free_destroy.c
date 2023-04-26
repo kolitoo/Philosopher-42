@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 12:09:54 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/21 16:25:47 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/04/26 17:12:23 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	free_all(t_arg *arg)
 {
-	free(arg->philo_tabstruct);
-	free(arg->mutex_tab);
 	free(arg->threads);
+	free(arg->mutex_tab);
+	free(arg->philo_tabstruct);
 }
 
 void	unlock_and_destroy_mutex(t_arg *arg)
@@ -26,9 +26,12 @@ void	unlock_and_destroy_mutex(t_arg *arg)
 	i = arg->nbr_philo;
 	while (i--)
 	{
-		// pthread_mutex_unlock(&arg->mutex_tab[i]);
+		if (arg->mutex_lock == 1)
+			pthread_mutex_unlock(&arg->mutex_tab[i]);
 		pthread_mutex_destroy(&arg->mutex_tab[i]);
 	}
 	// pthread_mutex_unlock(&(*arg).print_lock);
 	pthread_mutex_destroy(&(*arg).print_lock);
+	// pthread_mutex_unlock(&(*arg).check_died);
+	// pthread_mutex_destroy(&(*arg).check_died);
 }
