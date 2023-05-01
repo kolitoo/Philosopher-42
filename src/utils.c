@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/25 11:05:34 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:40:48 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ long	ft_get_time(void)
 	return (res);
 }
 
-void	ft_usleep(int usec)
+void	ft_usleep(long int usec)
 {
 	long	time_action_start;
-	
+
 	time_action_start = ft_get_time();
-	while (ft_get_time() < time_action_start + usec)
-		usleep(1);
+	while (ft_get_time() - time_action_start < usec)
+		usleep(usec / 10);
 }

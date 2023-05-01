@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:26 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/26 16:50:35 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 18:59:39 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ typedef struct s_philo
 	int				time_to_die;
 	int				time_to_sleep;
 	int				die;
+	int				stop;
 	long			time_of_last_must_eat;
 	long			start_time;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	print_lock;
+	pthread_t		thread_death_id;
 	struct s_arg	*arg;
 }	t_philo;
 
@@ -46,11 +48,12 @@ typedef struct s_arg
 	int				time_to_sleep;
 	int				nb_time_must_eat;
 	int				philo_id;
-	int				stop;
+	int				dead;
 	int				mutex_lock;
-	pthread_mutex_t		*mutex_tab;
-	pthread_mutex_t		print_lock;
-	pthread_mutex_t		check_died;
+	int				stop;
+	pthread_mutex_t	*mutex_tab;
+	pthread_mutex_t	print_lock;
+	pthread_mutex_t	check_died;
 	pthread_t		*threads;
 	t_philo			*philo_tabstruct;
 }	t_arg;
@@ -65,14 +68,13 @@ int		ft_init_philo(t_arg *arg);
 int		ft_init_mutex(t_arg *arg);
 void	free_all(t_arg *arg);
 void	*thread_routine(void *arg);
-void	*thread_routine_die(void *arg);
 void	printphilo(t_arg *arg);
 void	take_fork(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
 void	unlock_and_destroy_mutex(t_arg *arg);
-void	ft_usleep(int usec);
+void	ft_usleep(long int usec);
 long	ft_get_time(void);
 
 #endif
