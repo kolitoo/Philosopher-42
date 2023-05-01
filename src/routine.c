@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:35:44 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 19:03:14 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:16:57 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ void	*thread_routine(void *arg)
 	{
 		// pthread_create(&philo->thread_death_id, NULL, is_dead, arg);
 		take_fork(philo);
+		if (philo->stop != 0)
+		{
+			return (NULL);
+		}
 		eating(philo);
 		sleeping(philo);
 		thinking(philo);

@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:26 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 18:59:39 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 21:38:55 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	take_fork(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
-void	unlock_and_destroy_mutex(t_arg *arg);
+void	unlock_and_destroy_mutex(t_arg *arg, int i);
 void	ft_usleep(long int usec);
 long	ft_get_time(void);
 

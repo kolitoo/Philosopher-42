@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 11:52:48 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 19:06:05 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:10:47 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	ft_init_philo(t_arg *arg)
 
 	i = 0;
 	philo = malloc(sizeof(t_philo) * arg->nbr_philo);
+	if (!philo)
+	{
+		free(arg->mutex_tab);
+		unlock_and_destroy_mutex(arg, 3);
+		return (1);
+	}
 	while (i != arg->nbr_philo)
 	{
 		philo[i].philo_id = i;
@@ -47,7 +53,10 @@ int	ft_init_philo(t_arg *arg)
 		philo[i].time_to_sleep = arg->time_to_sleep;
 		philo[i].time_of_last_must_eat = ft_get_time();
 		philo[i].left_fork = &arg->mutex_tab[philo[i].philo_id];
-		philo[i].right_fork = &arg->mutex_tab[(philo[i].philo_id + 1) % arg->nbr_philo];
+		if (arg->nbr_philo != 1)
+			philo[i].right_fork = &arg->mutex_tab[(philo[i].philo_id + 1) % arg->nbr_philo];
+		// else
+		// 	philo[i].right_fork = &arg->mutex_tab[1];
 		philo[i].arg = arg;
 		i++;
 	}
@@ -61,18 +70,31 @@ int	ft_init_thread(t_arg *arg)
 	int	j;
 	pthread_t		*threads;
 
-	i = 0;
-	j = 0;
-	threads = malloc(sizeof(pthread_t) * arg->nbr_philo);//protect
-	while (i < arg->nbr_philo)
+	i = -1;
+	j = -1;
+	threads = malloc(sizeof(pthread_t) * arg->nbr_philo);
+	if (!threads)
 	{
-		pthread_create(&threads[i], NULL, thread_routine, (void *)&arg->philo_tabstruct[i]);
-		i++;
+		free(arg->mutex_tab);
+		free(arg->philo_tabstruct);
+		unlock_and_destroy_mutex(arg, 3);
+		return (1);
 	}
-	while (j < arg->nbr_philo)
+	while (++i < arg->nbr_philo)
 	{
-		pthread_join(threads[j], NULL);
-		j++;
+		if (pthread_create(&threads[i], NULL, thread_routine, (void *)&arg->philo_tabstruct[i]) != 0)
+		{
+			arg->threads = threads;
+			return (1);
+		}
+	}
+	while (++j < arg->nbr_philo)
+	{
+		if (pthread_join(threads[j], NULL) != 0)
+		{
+			arg->threads = threads;
+			return (1);
+		}
 	}
 	if (arg->stop == 1)
 		printf("every philosophers ate %d times\n", arg->nb_time_must_eat);
@@ -83,17 +105,37 @@ int	ft_init_thread(t_arg *arg)
 int	ft_init_mutex(t_arg *arg)
 {
 	int				i;
+	int				j;
+	int				k;
 	pthread_mutex_t	*mutex;
 
-	i = 0;
-	mutex = malloc(sizeof(pthread_mutex_t) * arg->nbr_philo);//protect
-	while (i < arg->nbr_philo)
+	i = -1;
+	j = -1;
+	k = arg->nbr_philo;
+	mutex = malloc(sizeof(pthread_mutex_t) * k);
+	if (!mutex)
+		return (1);
+	// if (k == 1)
+	// 	k++;
+	while (++i < k)
 	{
-		pthread_mutex_init(&mutex[i], NULL);//protect
-		i++;
-	}
-	pthread_mutex_init(&arg->print_lock, NULL);//protect
-	pthread_mutex_init(&arg->check_died, NULL);//protect
+		if (pthread_mutex_init(&mutex[i], NULL) != 0)
+		{
+			while (++j < i)
+				pthread_mutex_destroy(&mutex[j]);
+			return (1);
+		}
+	}		
 	arg->mutex_tab = mutex;
+	if (pthread_mutex_init(&arg->print_lock, NULL) != 0)
+	{
+		unlock_and_destroy_mutex(arg, 1); 
+		return (1);
+	}
+	if (pthread_mutex_init(&arg->check_died, NULL) != 0)
+	{
+		unlock_and_destroy_mutex(arg, 2); 
+		return (1);
+	}
 	return (0);
 }

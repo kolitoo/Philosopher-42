@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:41:33 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 19:05:06 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:19:07 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,22 @@
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right_fork);
+	if (philo->nbr_philo != 1)
+		pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&philo->arg->print_lock);
 	printf("\033[0;31m%ld %d has taken a fork\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
+	if (philo->nbr_philo == 1)
+	{
+		ft_usleep(philo->time_to_die);
+		printf("\033[0;37m%ld %d died\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
+		philo->stop = 1;
+		pthread_mutex_unlock(&philo->arg->print_lock);
+		pthread_mutex_unlock(philo->left_fork);
+		return ;
+	}
 	printf("\033[0;31m%ld %d has taken a fork\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
-	philo->arg->mutex_lock = 1;
+	// philo->arg->mutex_lock = 1;
 	pthread_mutex_unlock(&philo->arg->print_lock);
 }
 

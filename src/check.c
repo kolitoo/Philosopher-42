@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:14:28 by abourdon          #+#    #+#             */
-/*   Updated: 2023/04/21 11:21:56 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 19:12:24 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,22 @@ int	ft_check_arg(int ac, char **av)
 
 static int	ft_check_values2(t_arg *arg)
 {
-	if (arg->nbr_philo < 0)
+	if (arg->nbr_philo <= 0)
 	{
 		printf("Wrong number of philo\n");
 		return (1);
 	}
-	if (arg->time_to_die < 0)
+	if (arg->time_to_die <= 0)
 	{
 		printf("Wrong time to die\n");
 		return (1);
 	}
-	if (arg->time_to_eat < 0)
+	if (arg->time_to_eat <= 0)
 	{
 		printf("Wrong time to eat\n");
 		return (1);
 	}
-	if (arg->time_to_sleep < 0)
+	if (arg->time_to_sleep <= 0)
 	{
 		printf("Wrong time to sleep\n");
 		return (1);

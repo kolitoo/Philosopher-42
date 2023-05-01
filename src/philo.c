@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:53 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 19:04:36 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/01 22:06:41 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_init_philo(&arg) == 1)
 		return (1);
-	// printphilo(&arg);
 	if (ft_init_thread(&arg) == 1)
+	{
+		unlock_and_destroy_mutex(&arg, 3);
+		free_all(&arg);
 		return (1);
-	unlock_and_destroy_mutex(&arg);
+	}
+	unlock_and_destroy_mutex(&arg, 3);
 	free_all(&arg);
 	return (0);
 }
