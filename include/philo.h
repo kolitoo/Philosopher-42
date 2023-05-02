@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:26 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 21:38:55 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:46:13 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_arg
 	pthread_mutex_t	*mutex_tab;
 	pthread_mutex_t	print_lock;
 	pthread_mutex_t	check_died;
+	pthread_mutex_t	last_time_eat;
 	pthread_t		*threads;
 	t_philo			*philo_tabstruct;
 }	t_arg;
@@ -76,5 +77,6 @@ void	thinking(t_philo *philo);
 void	unlock_and_destroy_mutex(t_arg *arg, int i);
 void	ft_usleep(long int usec);
 long	ft_get_time(void);
+void	print_action(t_philo *philo, char *str, int bool);
 
 #endif

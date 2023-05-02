@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 18:40:48 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:46:47 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_atoi(const char *str)
 {
-	int				i;
-	int				sign;
-	unsigned int	nb;
+	int	i;
+	int	sign;
+	int	nb;
 
 	i = 0;
 	sign = 1;
@@ -71,4 +71,26 @@ void	ft_usleep(long int usec)
 	time_action_start = ft_get_time();
 	while (ft_get_time() - time_action_start < usec)
 		usleep(usec / 10);
+}
+
+void	print_action(t_philo *philo, char *str, int bool)
+{
+	long int	time;
+
+	time = ft_get_time() - philo->start_time;
+	if (philo->stop == 0 && philo->arg->dead == 0)
+	{
+		if (bool == 1)
+			printf("\033[0;31m");
+		else if (bool == 2)
+			printf("\033[0;33m");
+		else if (bool == 2)
+			printf("\033[0;35m");
+		else if (bool == 2)
+			printf("\033[0;34m");
+		else
+			printf("\033[0;37m");
+		printf("%ld ", time);
+		printf("%d %s\n\033[0;37m", philo->philo_id + 1, str);
+	}
 }

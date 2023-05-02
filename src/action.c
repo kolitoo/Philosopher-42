@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:41:33 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 22:19:07 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/02 23:05:33 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,29 @@ void	take_fork(t_philo *philo)
 		pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(&philo->arg->print_lock);
-	printf("\033[0;31m%ld %d has taken a fork\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
+	print_action(philo, "has taken a fork", 1);
 	if (philo->nbr_philo == 1)
 	{
 		ft_usleep(philo->time_to_die);
-		printf("\033[0;37m%ld %d died\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
-		philo->stop = 1;
+		print_action(philo, "died", 1);
+		philo->arg->dead = 1;
 		pthread_mutex_unlock(&philo->arg->print_lock);
 		pthread_mutex_unlock(philo->left_fork);
 		return ;
 	}
-	printf("\033[0;31m%ld %d has taken a fork\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
-	// philo->arg->mutex_lock = 1;
+	print_action(philo, "has taken a fork", 1);
 	pthread_mutex_unlock(&philo->arg->print_lock);
 }
 
 void	eating(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->arg->print_lock);
-	printf("\033[0;33m%ld %d is eating\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
+	print_action(philo, "is eating", 2);
 	pthread_mutex_unlock(&philo->arg->print_lock);
 	philo->actual_meals++;
+	pthread_mutex_lock(&philo->arg->last_time_eat);
+	philo->time_of_last_must_eat = ft_get_time();
+	pthread_mutex_unlock(&philo->arg->last_time_eat);
 	if (philo->actual_meals == philo->total_nbr_of_must_eat)
 	{
 		if (philo->philo_id + 1 == philo->nbr_philo)
@@ -54,7 +56,7 @@ void	eating(t_philo *philo)
 void	sleeping(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->arg->print_lock);
-	printf("\033[0;35m%ld %d is sleeping\n\033[0;35m", ft_get_time() - philo->start_time, philo->philo_id + 1);
+	print_action(philo, "is sleeping", 3);
 	pthread_mutex_unlock(&philo->arg->print_lock);
 	ft_usleep(philo->arg->time_to_sleep);
 }
@@ -62,6 +64,6 @@ void	sleeping(t_philo *philo)
 void	thinking(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->arg->print_lock);
-	printf("\033[0;34m%ld %d is thinking\n\033[0;37m", ft_get_time() - philo->start_time, philo->philo_id + 1);
+	print_action(philo, "is thinking", 4);
 	pthread_mutex_unlock(&philo->arg->print_lock);
 }

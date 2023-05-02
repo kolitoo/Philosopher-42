@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 11:52:48 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 22:10:47 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:32:53 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,11 @@ int	ft_init_mutex(t_arg *arg)
 	if (pthread_mutex_init(&arg->check_died, NULL) != 0)
 	{
 		unlock_and_destroy_mutex(arg, 2); 
+		return (1);
+	}
+	if (pthread_mutex_init(&arg->last_time_eat, NULL) != 0)
+	{
+		unlock_and_destroy_mutex(arg, 2); //modifier
 		return (1);
 	}
 	return (0);
