@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:41:33 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/02 23:05:33 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:08:40 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,21 @@
 
 void	take_fork(t_philo *philo)
 {
-	if (philo->nbr_philo != 1)
-		pthread_mutex_lock(philo->right_fork);
-	pthread_mutex_lock(philo->left_fork);
+	if (philo->nbr_philo == 1)
+		pthread_mutex_lock(philo->left_fork);
+	else
+	{
+		if (philo->philo_id % 2 != 0)
+		{
+			pthread_mutex_lock(philo->left_fork);
+			pthread_mutex_lock(philo->right_fork);
+		}
+		else
+		{
+			pthread_mutex_lock(philo->right_fork);
+			pthread_mutex_lock(philo->left_fork);
+		}
+	}
 	pthread_mutex_lock(&philo->arg->print_lock);
 	print_action(philo, "has taken a fork", 1);
 	if (philo->nbr_philo == 1)

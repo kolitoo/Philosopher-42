@@ -6,7 +6,7 @@
 #    By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 18:36:41 by abourdon          #+#    #+#              #
-#    Updated: 2023/05/02 22:34:25 by abourdon         ###   ########.fr        #
+#    Updated: 2023/05/11 11:53:32 by abourdon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,13 +21,14 @@ BOLD=\033[1m
 RESET=\033[0m
 
 	
-SRC = src/philo.c \
-	src/utils.c \
-	src/init.c \
-	src/free_destroy.c \
+SRC = 	src/action.c \
 	src/check.c \
+	src/free_destroy.c \
+	src/init.c \
+	src/philo.c \
 	src/routine.c \
-	src/action.c \
+	src/utils.c \
+	src/utils2.c \
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/02 22:46:47 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/11 12:54:30 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_atoi(const char *str)
 	int	i;
 	int	sign;
 	int	nb;
+	int	old_nb;
 
 	i = 0;
 	sign = 1;
@@ -34,7 +35,10 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] >= 48 && str[i] <= 57)
 	{
+		old_nb = nb;
 		nb = nb * 10 + str[i] - 48;
+		if (nb < old_nb)
+			return (printf("Error: Atoi Overflow\n"), -1);
 		i++;
 	}
 	return (sign * nb);
