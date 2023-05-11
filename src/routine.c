@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:35:44 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/11 16:43:41 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/11 21:26:37 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ void	*thread_routine(void *arg)
 		thinking(philo);
 		if (check_death(philo, 0) != 0)
 			return (NULL);
+		if (philo->actual_meals == philo->total_nbr_of_must_eat)
+		{
+			if (philo->philo_id + 1 == philo->nbr_philo)
+				philo->arg->stop = 1;
+			philo->stop = 1;
+		}
 		// pthread_join(philo->thread_death_id, NULL);
 		pthread_detach(philo->thread_death_id);
 	}
