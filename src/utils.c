@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/11 12:54:30 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:14:58 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,15 @@ void	print_action(t_philo *philo, char *str, int bool)
 	long int	time;
 
 	time = ft_get_time() - philo->start_time;
-	if (philo->stop == 0 && philo->arg->dead == 0)
+	if (philo->stop == 0 && check_death(philo, 0) == 0)//data_race
 	{
 		if (bool == 1)
 			printf("\033[0;31m");
 		else if (bool == 2)
 			printf("\033[0;33m");
-		else if (bool == 2)
+		else if (bool == 3)
 			printf("\033[0;35m");
-		else if (bool == 2)
+		else if (bool == 4)
 			printf("\033[0;34m");
 		else
 			printf("\033[0;37m");

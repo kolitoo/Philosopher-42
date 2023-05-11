@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 11:52:48 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/02 22:32:53 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:28:18 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,6 @@ int	ft_init_mutex(t_arg *arg)
 	mutex = malloc(sizeof(pthread_mutex_t) * k);
 	if (!mutex)
 		return (1);
-	// if (k == 1)
-	// 	k++;
 	while (++i < k)
 	{
 		if (pthread_mutex_init(&mutex[i], NULL) != 0)
@@ -139,7 +137,12 @@ int	ft_init_mutex(t_arg *arg)
 	}
 	if (pthread_mutex_init(&arg->last_time_eat, NULL) != 0)
 	{
-		unlock_and_destroy_mutex(arg, 2); //modifier
+		unlock_and_destroy_mutex(arg, 3); //modifier
+		return (1);
+	}
+	if (pthread_mutex_init(&arg->check_dead, NULL) != 0)
+	{
+		unlock_and_destroy_mutex(arg, 4);
 		return (1);
 	}
 	return (0);
