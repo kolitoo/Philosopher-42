@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:35:44 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/11 21:26:37 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:07:03 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,20 @@ void	*is_dead(void *arg)
 	pthread_mutex_lock(&philo->arg->last_time_eat);
 	if (check_death(philo, 0) != 0)
 	{
-		pthread_mutex_unlock(&philo->arg->check_died);
+		// pthread_mutex_unlock(&philo->arg->check_died);
 		pthread_mutex_unlock(&philo->arg->last_time_eat);
 		return (NULL);
 	}
 	if (ft_get_time() - philo->time_of_last_must_eat >= philo->time_to_die)
 	{
-		// pthread_mutex_unlock(&philo->arg->check_died);
+		pthread_mutex_unlock(&philo->arg->check_died);
 		// pthread_mutex_unlock(&philo->arg->last_time_eat);
 		pthread_mutex_lock(&philo->arg->print_lock);
 		print_action(philo, "died", 0);
 		pthread_mutex_unlock(&philo->arg->print_lock);
 		check_death(philo, 1);
 	}
-	pthread_mutex_unlock(&philo->arg->check_died);
+	// pthread_mutex_unlock(&philo->arg->check_died);
 	pthread_mutex_unlock(&philo->arg->last_time_eat);
 	return (NULL);
 }

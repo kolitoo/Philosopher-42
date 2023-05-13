@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:26 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/11 14:52:26 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:59:15 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int		ft_init_philo(t_arg *arg);
 int		ft_init_mutex(t_arg *arg);
 void	free_all(t_arg *arg);
 void	*thread_routine(void *arg);
-void	printphilo(t_arg *arg);
 void	take_fork(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
