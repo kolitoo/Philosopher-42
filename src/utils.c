@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/12 16:52:19 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:23:25 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,9 @@ void	ft_usleep(long int usec)
 
 	time_action_start = ft_get_time();
 	while (ft_get_time() - time_action_start < usec)
+	{
 		usleep(usec / 10);
+	}
 }
 
 void	print_action(t_philo *philo, char *str, int bool)
@@ -82,7 +84,7 @@ void	print_action(t_philo *philo, char *str, int bool)
 	long int	time;
 
 	time = ft_get_time() - philo->start_time;
-	if (/*time >= 0 && time <= 2147483647 &&*/philo->stop == 0 &&check_death(philo, 0) == 0)//data_race
+	if (/*time >= 0 && time <= 2147483647 &&*/check_death(philo, 0) == 0)//data_race
 	{
 		if (bool == 1)
 			printf("\033[0;31m");

@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:26 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/12 16:59:15 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:16:03 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ void	unlock_and_destroy_mutex(t_arg *arg, int i);
 void	ft_usleep(long int usec);
 long	ft_get_time(void);
 void	print_action(t_philo *philo, char *str, int bool);
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *str, int fd);
-void	ft_putnbr_fd(long int nb, int fd);
 int	check_death(t_philo *philo, int i);
+int	check(t_philo *philo);
 
 #endif

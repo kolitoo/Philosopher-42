@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 11:52:48 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/11 16:28:18 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/15 20:19:15 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ int	ft_init_philo(t_arg *arg)
 		philo[i].left_fork = &arg->mutex_tab[philo[i].philo_id];
 		if (arg->nbr_philo != 1)
 			philo[i].right_fork = &arg->mutex_tab[(philo[i].philo_id + 1) % arg->nbr_philo];
-		// else
-		// 	philo[i].right_fork = &arg->mutex_tab[1];
 		philo[i].arg = arg;
 		i++;
 	}
@@ -88,16 +86,17 @@ int	ft_init_thread(t_arg *arg)
 			return (1);
 		}
 	}
-	while (++j < arg->nbr_philo)
+	if (check(arg->philo_tabstruct) != 0)
 	{
-		if (pthread_join(threads[j], NULL) != 0)
+		while (++j < arg->nbr_philo)
 		{
-			arg->threads = threads;
-			return (1);
+			if (pthread_join(threads[j], NULL) != 0)
+			{
+				arg->threads = threads;
+				return (1);
+			}
 		}
 	}
-	if (arg->stop == 1)
-		printf("every philosophers ate %d times\n", arg->nb_time_must_eat);
 	arg->threads = threads;
 	return (0);
 }
@@ -128,11 +127,6 @@ int	ft_init_mutex(t_arg *arg)
 	if (pthread_mutex_init(&arg->print_lock, NULL) != 0)
 	{
 		unlock_and_destroy_mutex(arg, 1); 
-		return (1);
-	}
-	if (pthread_mutex_init(&arg->check_died, NULL) != 0)
-	{
-		unlock_and_destroy_mutex(arg, 2); 
 		return (1);
 	}
 	if (pthread_mutex_init(&arg->last_time_eat, NULL) != 0)
