@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/17 17:31:50 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/17 20:45:02 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_usleep(long int usec)
 	long	time_action_start;
 
 	time_action_start = ft_get_time();
-	usleep(usec * 920);
+	usleep(usec * 800);
 	while (ft_get_time() - time_action_start < usec)
 	{
 		usleep(usec / 10);
