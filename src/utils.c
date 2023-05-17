@@ -6,15 +6,14 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/15 18:23:25 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:31:50 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	ft_atoi(const char *str)
+int	ft_atoi(const char *str, int i)
 {
-	int	i;
 	int	sign;
 	int	nb;
 	int	old_nb;
@@ -24,9 +23,7 @@ int	ft_atoi(const char *str)
 	nb = 0;
 	while (str[i] == ' ' || str[i] == '\f'
 		|| str[i] == '\t' || str[i] == '\n' || str[i] == '\r' || str[i] == '\v')
-	{
 		i++;
-	}
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
@@ -73,6 +70,7 @@ void	ft_usleep(long int usec)
 	long	time_action_start;
 
 	time_action_start = ft_get_time();
+	usleep(usec * 920);
 	while (ft_get_time() - time_action_start < usec)
 	{
 		usleep(usec / 10);
@@ -84,7 +82,7 @@ void	print_action(t_philo *philo, char *str, int bool)
 	long int	time;
 
 	time = ft_get_time() - philo->start_time;
-	if (/*time >= 0 && time <= 2147483647 &&*/check_death(philo, 0) == 0)//data_race
+	if (check_death(philo, 0) == 0)
 	{
 		if (bool == 1)
 			printf("\033[0;31m");

@@ -6,7 +6,7 @@
 #    By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 18:36:41 by abourdon          #+#    #+#              #
-#    Updated: 2023/05/15 22:12:25 by abourdon         ###   ########.fr        #
+#    Updated: 2023/05/17 17:28:33 by abourdon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,13 @@ RESET=\033[0m
 
 	
 SRC = 	src/action.c \
-	src/check.c \
+	src/check_args.c \
 	src/free_destroy.c \
-	src/init.c \
+	src/init_args_and_philo.c \
+	src/init_process.c \
 	src/philo.c \
 	src/routine.c \
 	src/utils.c \
-	src/utils2.c \
 
 OBJ = $(SRC:.c=.o)
 

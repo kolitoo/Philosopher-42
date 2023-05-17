@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check.c                                            :+:      :+:    :+:   */
+/*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:14:28 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/01 19:12:24 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/17 17:32:21 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_check_values(int ac, t_arg *arg, char **av)
 		arg->nb_time_must_eat = -1;
 	else if (ac == 6)
 	{
-		arg->nb_time_must_eat = ft_atoi(av[5]);
+		arg->nb_time_must_eat = ft_atoi(av[5], 0);
 		if (arg->nb_time_must_eat < 1)
 		{
 			printf("Incorrect number of times each philosopher must_eat\n");

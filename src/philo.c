@@ -6,30 +6,11 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:53 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/11 16:17:34 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:43:58 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-// void	printphilo(t_arg *arg)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < arg->nbr_philo)
-// 	{
-// 		printf("philo ID: %d\n", arg->philo_tabstruct[i].philo_id);
-// 		printf("philo nb: %d\n", arg->philo_tabstruct[i].nbr_philo);
-// 		printf("total nbr of must eat: %d\n", arg->philo_tabstruct[i].total_nbr_of_must_eat);
-// 		printf("time to eat: %d\n", arg->philo_tabstruct[i].time_to_eat);
-// 		printf("time to sleep: %d\n", arg->philo_tabstruct[i].time_to_sleep);
-// 		printf("time to die: %d\n", arg->philo_tabstruct[i].time_to_die);
-// 		printf("time of last must eat: %ld\n", arg->philo_tabstruct[i].time_of_last_must_eat);
-// 		printf("---------------------------------------------\n");
-// 		i++;
-// 	}
-// }
 
 int	main(int ac, char **av)
 {
@@ -43,13 +24,8 @@ int	main(int ac, char **av)
 		return (1);
 	if (ft_init_philo(&arg) == 1)
 		return (1);
-	if (ft_init_thread(&arg) == 1)
-	{
-		unlock_and_destroy_mutex(&arg, 3);
-		free_all(&arg);
+	if (ft_init_thread(&arg, -1, -1, -1) == 1)
 		return (1);
-	}
-	unlock_and_destroy_mutex(&arg, 3);
-	free_all(&arg);
+	free_and_destroy(&arg);
 	return (0);
 }
