@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:41:33 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/17 19:39:50 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/23 12:56:29 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	take_fork(t_philo *philo)
 	print_action(philo, "has taken a fork", 1);
 	if (philo->nbr_philo == 1)
 	{
-		ft_usleep(philo->time_to_die);
+		ft_usleep(philo->time_to_die, philo);
 		print_action(philo, "died", 0);
 		check_death(philo, 1);
 		pthread_mutex_unlock(&philo->arg->print_lock);
@@ -63,7 +63,7 @@ void	eating(t_philo *philo)
 		philo->arg->count_meals++;
 	}
 	pthread_mutex_unlock(&philo->arg->last_time_eat);
-	ft_usleep(philo->arg->time_to_eat);
+	ft_usleep(philo->arg->time_to_eat, philo);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }
@@ -73,7 +73,7 @@ void	sleeping(t_philo *philo)
 	pthread_mutex_lock(&philo->arg->print_lock);
 	print_action(philo, "is sleeping", 3);
 	pthread_mutex_unlock(&philo->arg->print_lock);
-	ft_usleep(philo->arg->time_to_sleep);
+	ft_usleep(philo->arg->time_to_sleep, philo);
 }
 
 void	thinking(t_philo *philo)

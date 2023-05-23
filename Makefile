@@ -6,13 +6,13 @@
 #    By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/14 18:36:41 by abourdon          #+#    #+#              #
-#    Updated: 2023/05/17 20:36:04 by abourdon         ###   ########.fr        #
+#    Updated: 2023/05/23 12:09:42 by abourdon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 RM = rm -rf
 
 GREEN=\033[33;32m

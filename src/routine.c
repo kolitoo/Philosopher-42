@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:35:44 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/17 19:38:23 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/23 13:01:29 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,21 @@ void	*thread_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->philo_id % 2 != 0)
-		ft_usleep(philo->arg->time_to_eat / 2);
+		ft_usleep(philo->arg->time_to_eat / 2, philo);
 	while (check_death(philo, 0) == 0)
 	{
 		if (check_death(philo, 0) != 0)
 			return (NULL);
 		take_fork(philo);
 		if (check_death(philo, 0) != 0)
+		{
+			if (philo->arg->nbr_philo != 1)
+			{
+				pthread_mutex_unlock(philo->left_fork);
+				pthread_mutex_unlock(philo->right_fork);
+			}
 			return (NULL);
+		}
 		eating(philo);
 		if (check_meals(philo) != 0 || check_death(philo, 0) != 0)
 			return (NULL);
