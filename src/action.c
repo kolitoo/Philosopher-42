@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:41:33 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/23 12:56:29 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/23 16:03:45 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ void	take_fork(t_philo *philo)
 	}
 	print_action(philo, "has taken a fork", 1);
 	pthread_mutex_unlock(&philo->arg->print_lock);
+	if (check_death(philo, 0) != 0)
+	{
+		if (philo->arg->nbr_philo != 1)
+		{
+			pthread_mutex_unlock(philo->left_fork);
+			pthread_mutex_unlock(philo->right_fork);
+		}
+	}
 }
 
 void	eating(t_philo *philo)
