@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:26 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/23 12:55:56 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/25 11:18:20 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,5 @@ int		ft_atoi(const char *str, int i);
 void	ft_usleep(long int usec, t_philo *philo);
 void	print_action(t_philo *philo, char *str, int bool);
 long	ft_get_time(void);
-void	*test_check(void *arg);
 
 #endif

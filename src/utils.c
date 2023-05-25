@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:58:40 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/23 19:00:04 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/25 11:18:02 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,14 @@ void	ft_usleep(long int usec, t_philo *philo)
 {
 	long	time_action_start;
 
-	(void)philo;
 	time_action_start = ft_get_time();
-	usleep(usec * 800);
+	usleep(usec * (800 + philo->arg->nbr_philo));
 	while (ft_get_time() - time_action_start < usec)
 		usleep(usec / 10);
 }
 
 void	print_action(t_philo *philo, char *str, int bool)
 {
-	long int	time;
-
-	time = ft_get_time() - philo->start_time;
 	if (check_death(philo, 0) == 0)
 	{
 		if (bool == 1)
@@ -93,7 +89,7 @@ void	print_action(t_philo *philo, char *str, int bool)
 			printf("\033[0;34m");
 		else
 			printf("\033[0;37m");
-		printf("%ld ", time);
+		printf("%ld ", ft_get_time() - philo->start_time);
 		printf("%d %s\n\033[0;37m", philo->philo_id + 1, str);
 	}
 }

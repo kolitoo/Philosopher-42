@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 12:41:33 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/23 16:03:45 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/25 11:12:01 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static void	even_or_odd(t_philo *philo)
 {
-	if (philo->nbr_philo == 1)
-		pthread_mutex_lock(philo->left_fork);
-	else
+	if (philo->nbr_philo != 1)
 	{
 		if (philo->philo_id % 2 != 0)
 		{
@@ -29,6 +27,8 @@ static void	even_or_odd(t_philo *philo)
 			pthread_mutex_lock(philo->left_fork);
 		}
 	}
+	else
+		pthread_mutex_lock(philo->left_fork);
 }
 
 void	take_fork(t_philo *philo)
