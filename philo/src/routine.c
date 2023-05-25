@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:35:44 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/25 11:15:51 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:43:17 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 int	check_death(t_philo *philo, int i)
 {
+	int	k;
+
+	k = 0;
 	pthread_mutex_lock(&philo->arg->check_dead);
 	if (i != 0)
 		philo->arg->dead = i;
 	if (philo->arg->dead != 0)
 	{
+		k = philo->arg->dead;
 		pthread_mutex_unlock(&philo->arg->check_dead);
-		return (philo->arg->dead);
+		return (k);
 	}
 	pthread_mutex_unlock(&philo->arg->check_dead);
 	return (0);
