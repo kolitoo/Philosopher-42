@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 18:36:26 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/25 11:18:20 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:50:38 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	thinking(t_philo *philo);
 
 /*check.c*/
 int		ft_check_values(int ac, t_arg *arg, char **av);
-int		ft_check_arg(int ac, char **av);
+int		ft_check_arg(int ac);
 
 /*init_args_and_philo.c*/
 int		ft_init_args(int ac, char **av, t_arg *arg);

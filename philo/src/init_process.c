@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 17:28:19 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/25 13:25:26 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:05:48 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void	end_of_threads(t_arg *arg, int j, pthread_t	*threads)
 {
-	// if (check_loop(arg->philo_tabstruct) != 0)
-	// {
+	if (check_loop(arg->philo_tabstruct) != 0)
+	{
 		while (++j < arg->nbr_philo)
 			pthread_join(threads[j], NULL);
 		if (arg->flag == 1)
 			printf("each philo ate %d times\n", arg->nb_time_must_eat);
-	// }
+	}
 	arg->threads = threads;
 }
 

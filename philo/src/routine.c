@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:35:44 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/25 15:43:17 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/05/26 12:51:51 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,13 @@ int	check_loop(t_philo *philo)
 	while (1)
 	{
 		i = -1;
+		ft_usleep(philo->time_to_die + 1, philo);
 		while (++i < philo->nbr_philo)
 		{
 			if (if_die(&i, time_now, philo) == 1)
 				return (1);
 			if (check_meals(&philo[i]) == 2)
-			{
-				philo->arg->flag = 1;
 				return (2);
-			}
 		}
 	}
 	return (0);
@@ -80,6 +78,7 @@ int	check_meals(t_philo *philo)
 		if (philo->arg->count_meals == philo->nbr_philo)
 		{
 			check_death(philo, 2);
+			philo->arg->flag = 1;
 			pthread_mutex_unlock(&philo->arg->last_time_eat);
 			return (2);
 		}
