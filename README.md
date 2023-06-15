@@ -30,3 +30,7 @@ To eat, a philosopher needs two forks (in my program, each philosopher takes his
 ## Step 3: Mutex & treads
 
 ## Step 4: Death & meals
+
+# Tester
+To test my program, i used this one :
+https://github.com/MichelleJiam/LazyPhilosophersTester
