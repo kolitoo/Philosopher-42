@@ -43,8 +43,8 @@ To check death, I use an infinite loop or I check each philosopher continuously.
 #2 Meals: 
 To check meals, I simply increment a variable that is then compared if my variable if there is a number of meals to eat. If so, my program stops.
 
-⚠️Warning⚠️: Every check are protect with the mutex (Otherwise this create data race).
+⚠️Warning: Every check are protect with the mutex (Otherwise this create data race).
 
-# Tester
+# Leaks & tests
 To test my program, i used this one :
 https://github.com/MichelleJiam/LazyPhilosophersTester
