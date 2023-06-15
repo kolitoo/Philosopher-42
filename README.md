@@ -33,14 +33,22 @@ To eat, a philosopher needs two forks (in my program, each philosopher takes his
 
 - We need to check the numbers of arguments.
 - We need check if each argument is a number and equal or greater than 0. Else, return an error.
+- I choose to do a structure table to store philosopher information, a cell of the table corresponds to a philosopher.
 
 ## Step 3: Mutex & threads
 
-What is a mutex & a threads ? ?
+What is a mutex & a thread ?
 
 A mutex is a synchronization mechanism that allows multiple threads to safely access shared resources by enforcing exclusive access to those resources.
 
 A thread is a unit of execution within a process that enables concurrent and independent execution of tasks.
+
+To use a mutex or a thread, you need to init it:
+ ```
+ pthread_mutex_init(&mutex[i], NULL);
+ pthread_create(&threads[i], NULL, thread_routine, (void *)&arg->philo_tabstruct[i]);
+ ```
+thread_routine is my function where I declenche the different actions of philosophers.
 
 ## Step 4: Control time
 
