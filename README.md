@@ -2,6 +2,7 @@
 
 Learning the basics of threading a process.
 How to create threads and discover mutexes.
+I only did the mandatory subject.
 
 ## Description
 
@@ -20,8 +21,6 @@ The purpose of this simulation is that it is infinite, unless a philosopher dies
 A philosopher is represented by a thread and there is a number of forks (mutex) equal to the number of philosophers. 
 Philosophers can in order: take the forks => eat => sleep => think. (In reality, they think while waiting to take the forks).
 To eat, a philosopher needs two forks (in my program, each philosopher takes his fork and that of his right neighbor).
-
-
 
 ## Step 2: Parsing & Check
 
