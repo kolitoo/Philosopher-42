@@ -4,6 +4,12 @@ Learning the basics of threading a process.
 How to create threads and discover mutexes.
 I only did the mandatory subject.
 
+## To launch my program
+
+ ```
+git clone https://github.com/kolitoo/Philosopher-42.git && cd Philosopher-42 && cd philo && make
+ ```
+ 
 ## Description
 
 I did this project in 4 steps:
