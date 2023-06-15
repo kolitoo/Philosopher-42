@@ -13,10 +13,11 @@ git clone https://github.com/kolitoo/Philosopher-42.git && cd Philosopher-42 && 
 ## Description
 
 I did this project in 4 steps:
-* Understand the subject
-* Parsing & check arguments.
-* Create & Use mutex/threads.
-* Check the death and the number of meals each philosopher ate.
+- Understand the subject
+- Parsing & check arguments.
+- Create & Use mutex/threads.
+- Control time.
+- Check the death and the number of meals each philosopher ate.
 
 ## Step 1: Understand the subject
 
@@ -35,7 +36,9 @@ To eat, a philosopher needs two forks (in my program, each philosopher takes his
 
 ## Step 3: Mutex & treads
 
-## Step 4: Death & meals
+## Step 4: Control time
+
+## Step 5: Death & meals
 
 #1 Death:
 To check death, I use an infinite loop or I check each philosopher continuously. If one dies, the program stops. I run this loop in the main process. I don’t use additional threads unnecessarily (and this optimizes my program).
