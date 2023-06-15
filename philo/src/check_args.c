@@ -6,7 +6,7 @@
 /*   By: abourdon <abourdon@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:14:28 by abourdon          #+#    #+#             */
-/*   Updated: 2023/05/26 12:51:38 by abourdon         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:31:17 by abourdon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int	ft_check_arg(int ac)
 {
-	int	i;
-
-	i = 1;
 	if (ac == 5 || ac == 6)
 		return (0);
 	else
