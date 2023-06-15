@@ -37,6 +37,14 @@ To eat, a philosopher needs two forks (in my program, each philosopher takes his
 
 ## Step 4: Death & meals
 
+#1 Death:
+To check death, I use an infinite loop or I check each philosopher continuously. If one dies, the program stops. I run this loop in the main process. I don’t use additional threads unnecessarily (and this optimizes my program).
+
+#2 Meals: 
+To check meals, I simply increment a variable that is then compared if my variable if there is a number of meals to eat. If so, my program stops.
+
+⚠️Warning⚠️: Every check are protect with the mutex (Otherwise this create data race).
+
 # Tester
 To test my program, i used this one :
 https://github.com/MichelleJiam/LazyPhilosophersTester
