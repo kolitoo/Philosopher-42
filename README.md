@@ -49,5 +49,12 @@ To check meals, I simply increment a variable that is then compared if my variab
 ⚠️Warning: Every check are protect with the mutex (Otherwise this create data race).
 
 # Leaks & tests
+ To test the leaks, u can use 2 tools:
+ - compile with -g -fsanitize=thread to see every mutex & threads problems (unlock mutex, data race, ...).
+ OR
+ - Use valgrind --tool=helgrind to see every mutex & threads problems (unlock mutex, data race, ...).
+ (I used fsanitize because for me it slows down the performance of the program)
+⚠️Warning: NEVER USE FSANITISE WITH VALGRIND (Or your PC will hate u).
+
 To test my program, i used this one :
 https://github.com/MichelleJiam/LazyPhilosophersTester
