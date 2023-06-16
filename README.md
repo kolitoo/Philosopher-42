@@ -111,5 +111,7 @@ https://github.com/MichelleJiam/LazyPhilosophersTester
 
 ## Links
 https://stackoverflow.com/questions/61255354/solve-dining-philosophers-problem-using-pthreads-mutex-locks-and-condition-var
+
 https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/
+
 https://franckh.developpez.com/tutoriels/posix/pthreads/
