@@ -52,6 +52,38 @@ thread_routine is my function where I declenche the different actions of philoso
 
 ## Step 4: Control time
 
+You need to make your own fonction to get the time like that
+ ```
+long	ft_get_time(void)
+{
+	struct timeval	tv;
+	long			res;
+
+	gettimeofday(&tv, NULL);
+	res = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (res);
+}
+```
+ You can use usleep(), but this function is not precise, so you will need to do your own function with a loop to be precis.
+```  
+void	ft_usleep(long int usec, t_philo *philo)
+{
+	long	time_action_start;
+
+	time_action_start = ft_get_time();
+	usleep(usec * (800 + philo->arg->nbr_philo));
+	while (ft_get_time() - time_action_start < usec)
+		usleep(usec / 10);
+}
+```
+(i use a usleep(800) before the loop to optimize my program).
+
+The strategy adopted in the program is to launch philosophers by pair or odd.
+```
+if (philo->philo_id % 2 != 0)
+ ft_usleep(philo->arg->time_to_eat / 2, philo);
+```
+
 ## Step 5: Death & meals
 
 #1 Death:
@@ -62,7 +94,7 @@ To check meals, I simply increment a variable that is then compared if my variab
 
 ⚠️Warning: Every check are protect with the mutex (Otherwise this create data race).
 
-# Leaks & tests
+## Leaks & tests
  To test the leaks, u can use 2 tools:
  - compile with -g -fsanitize=thread to see every mutex & threads problems (unlock mutex, data race, ...).
  
@@ -76,3 +108,8 @@ To check meals, I simply increment a variable that is then compared if my variab
 
 To test my program, i used this one :
 https://github.com/MichelleJiam/LazyPhilosophersTester
+
+## Links
+https://stackoverflow.com/questions/61255354/solve-dining-philosophers-problem-using-pthreads-mutex-locks-and-condition-var
+https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/
+https://franckh.developpez.com/tutoriels/posix/pthreads/
